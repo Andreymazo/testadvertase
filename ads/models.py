@@ -32,10 +32,12 @@ statut = [("waiting","waiting"), ("accepted","accepted"), ("rejected", "rejected
 
 """Модель - Предложение"""
 class ExchangeProposal(models.Model):
-    ad_sender = models.ForeignKey('users.CustomUser', on_delete=models.CASCADE, \
-                                  related_name='sender', verbose_name="Номер инициатора предложения")
-    ad_receiver = models.ForeignKey('users.CustomUser', on_delete=models.CASCADE,\
-                                     related_name='receiver', verbose_name="Номер принимающего предложения")
+    user = models.ForeignKey('users.CustomUser', on_delete=models.CASCADE, \
+                                  related_name='customuser', verbose_name="Номер инициатора предложения")
+    ad_sender = models.ForeignKey('ads.Advertisement', on_delete=models.CASCADE, \
+                                  related_name='sender', verbose_name="Номер объявления инициатора предложения")
+    ad_receiver = models.ForeignKey('ads.Advertisement', on_delete=models.CASCADE,\
+                                     related_name='receiver', verbose_name="Номер объявления принимающего предложения")
     comment = models.CharField(max_length=350 , verbose_name="Комментраий")
     status = models.CharField(choices=statut, default="waiting")
     created_at =  models.DateTimeField(auto_now_add = True)
