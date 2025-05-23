@@ -1,0 +1,24 @@
+ {% include 'templates/main_menu.html' %}
+ Активный пользователь {{user}}
+  <h4>
+    Создано предложение со следующими параметрами
+ </h4>
+<p>
+   Номер {{new_prop_obj.id}} 
+</p>
+<p>
+    Предлагающий предложение  {{new_prop_obj.ad_sender}}
+</p>
+<p>
+    Принимающий предложение  {{new_prop_obj.ad_receiver}}
+</p>
+<p>
+    Комментарий {{new_prop_obj.comment}}
+</p>
+<p>
+    Статус {{new_prop_obj.status}}
+</p>
+
+<p>
+    Создано  {{new_prop_obj.created_at}}
+</p>

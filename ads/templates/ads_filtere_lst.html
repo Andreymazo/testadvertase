@@ -1,0 +1,63 @@
+  {% include 'templates/main_menu.html' %}
+ <form action="" method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        {{form.as_p}}
+                        <input type="submit" value="Поиск">
+</form>
+
+ <table class="table table-dark table-striped">
+          <thead>
+            <tr>
+                <th scope="col">Ads title</th>
+                <th scope="col">Ads id</th>
+                <th scope="col">Ads created by user </th>
+                 <th scope="col">Condition</th>
+                <th scope="col">Category</th>
+                <th scope="col">Image</th>
+                <th scope="col">Make choice</th>
+
+            </tr>
+          </thead>
+<tbody>
+     {%if ads_queryset%}
+    {%for item in page_obj.object_list%}
+     <tr>
+                    <td>{{item.title}}</td>
+                    <td> {{item.id}} </td>
+                    <td> {{item.user}} </td>
+                    <td> {{item.status}} </td>
+                    <td> {{item.category}} </td>
+                    <td>
+                        {%if item.image%}
+                        <div class = "profile-pic-wrapper">
+                            <img src="{{item.image.url}}"  alt="" class="rounded-circle" data-bs-target="#exampleModal", height="50"/>
+                        </div> 
+                        {%endif%}
+                    </td>
+                     <td>
+                        <a class="btn.btn-default" href="{% url 'ads:update_ads_confirm' item.pk %}" >Update</a>
+                        <a class="btn.btn-default" href="{% url 'ads:ads_lst'  %}" >Create</a>
+                        <a class="btn.btn-default" href="{% url 'ads:delete_ads_confirm' item.pk %}" >Delete</a>
+
+                    </td>
+
+
+           
+                </tr>
+{%endfor%}
+    {%endif%}
+    <center>
+        {%if page_obj.has_previous %} {# whether the previous page exists #}
+            <a href="?page={{page_obj.previous_page_number}}"><</a> {# link to the prev page #}
+        {% endif %}
+        <span>{{page_obj.number}}</span> {# the current page number #}
+      
+        {%if page_obj.has_next %} {# whether the next page exists #}
+            <a href="?page={{page_obj.next_page_number}}">></a> {# link to the next page #}
+        {% endif %}
+    </center>
+</tbody>
+</table>
+
+
+    

@@ -1,0 +1,26 @@
+ {% include 'templates/main_menu.html' %}
+ Активный пользователь {{user}}
+  <h4>
+    Создано объявление со следующими параметрами
+ </h4>
+<p>
+   Номер {{new_ads_obj.id}} 
+</p>
+<p>
+    Название {{new_ads_obj.title}}
+</p>
+<p>
+    Создано {{new_ads_obj.create}}
+</p>
+<p>
+    Категория {{new_ads_obj.category}}
+</p>
+<p>
+    Картинка {{new_ads_obj.image}}
+</p>
+<p>
+    Описание {{new_ads_obj.description}}
+</p>
+<p>
+    Пользователя  {{new_ads_obj.user}}
+</p>

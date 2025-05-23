@@ -1,0 +1,28 @@
+   {% include 'templates/main_menu.html' %}
+   <body>
+
+
+      <table class="table table-dark table-striped">
+          <thead>
+            <tr>
+                <th scope="col">Employer id</th>
+                <th scope="col">Employer Name</th>
+                <th scope="col">Last joined</th>
+                <th scope="col">Is active</th>
+            
+            </tr>
+          </thead>
+
+ <tbody>
+ {% for object in customuser_queryset %}
+                <tr>
+         
+                    <td>{{object.id}}</td>
+                    <td> {{ object.email }} </td>
+                    <td>{{object.last_login}}</td>
+                    <td>{{object.is_active}}</td>
+
+                  
+                </tr>
+        {% endfor %}
+          </tbody>
