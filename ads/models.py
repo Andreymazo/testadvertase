@@ -25,7 +25,7 @@ class Advertisement(models.Model):
         return ''
 
     def __str__(self):
-        return str(self.title)
+        return str(self.user)
     
 
 statut = [("waiting","waiting"), ("accepted","accepted"), ("rejected", "rejected"),]

@@ -149,13 +149,20 @@ def ads_filter(request):
 def proposals_lst_with_create(request):
     if request.user.is_anonymous:
         return redirect('users:log_in')
-        
+      
     prop_queryset = ExchangeProposal.objects.all()
     form = CreateProposalsForm(request.POST)
     if request.method == 'POST':
         if form.is_valid():
-            prop_instance = ExchangeProposal(ad_sender=CustomUser.objects.get(id=request.user.id), **form.cleaned_data)
+            print('7777777777777777777777777777777', type(form.cleaned_data['ad_sender'][0]))
+            prop_instance = ExchangeProposal(user=CustomUser.objects.get(id=request.user.id),\
+                    ad_sender=form.cleaned_data['ad_sender'][0], ad_receiver=form.cleaned_data['ad_receiver'][0],\
+                    comment=form.cleaned_data['comment'], status=form.cleaned_data['status'])
+
+            # prop_instance = form.save(commit=False)
+            # prop_instance = ExchangeProposal(user=CustomUser.objects.get(id=request.user.id), **form.cleaned_data)
             prop_instance.save()
+            # form.save()
             return redirect(reverse('ads:create_proposal_confirm', kwargs={'pk':prop_instance.id}))
     else:
         form = CreateProposalsForm()

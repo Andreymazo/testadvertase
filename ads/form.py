@@ -2,6 +2,7 @@
 from django import forms
 
 from ads.models import Advertisement, ExchangeProposal
+from users.models import CustomUser
 
 """Формы для Advertisement"""
 
@@ -32,17 +33,28 @@ class FilterAdsForm(forms.Form):
    
 """Формы для ExchangeProposal"""
 
-class CreateProposalsForm(forms.ModelForm):
-    class Meta:
-        model = ExchangeProposal
-        fields = [ 'ad_receiver', 'comment', 'status', ]
+# class CreateProposalsForm(forms.ModelForm):
+#     class Meta:
+#         model = ExchangeProposal
+#         # fields = [ 'ad_sender', 'ad_receiver', 'comment', 'status', ]
+#         exclude = ('user',)
+#     def __init__(self, *args, **kwargs):
+#         # print('============================kwargs', kwargs, self)
+#         user = kwargs.pop('user','')
+#         super(CreateProposalsForm, self).__init__(*args, **kwargs)
+#         self.fields['ad_sender']=forms.ModelChoiceField(queryset=Advertisement.objects.filter(sender=user))
+#         self.fields['ad_receiver']=forms.ModelChoiceField(queryset=Advertisement.objects.filter(receiver=user))
+#         self.fields['comment']=forms.CharField(max_length=150)
+#         self.fields['status']=forms.ChoiceWidget(choices=(("waiting","waiting"), ("accepted","accepted"), ("rejected", "rejected")))
 
-    # def __init__(self, *args, **kwargs):
-    #     super().__init__(*args, **kwargs)
-    #     instance = kwargs.get("instance")
-    #     if instance:
-    #         if instance.ad_receiver:
-    #             return instance.id
+
+
+class CreateProposalsForm(forms.Form):
+
+    ad_sender = forms.ModelMultipleChoiceField(queryset=Advertisement.objects.all())
+    ad_receiver = forms.ModelMultipleChoiceField(queryset=Advertisement.objects.all())
+    comment = forms.CharField()
+    status = forms.ChoiceField(choices=(("waiting","waiting"), ("accepted","accepted"), ("rejected", "rejected")))
 
 # class CreateProposalsForm(forms.Form):
     
