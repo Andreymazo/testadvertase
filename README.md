@@ -47,4 +47,5 @@
 Туду:
 CRUD Ads
 Tests
+Чтобы использовать пайтестовские фикстуры, надо не только установить пайтест, но и плагин pip install pytest-django
 python manage.py dumpdata > db.json 

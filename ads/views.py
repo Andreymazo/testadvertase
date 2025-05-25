@@ -25,7 +25,8 @@ def ads_lst_with_create(request):
         form = CreateAdsForm()
 
     context = {'form': form,
-               'ads_queryset':ads_queryset}
+               'ads_queryset':ads_queryset,
+               'user': request.user}
     return render(request, 'ads/templates/ads_lst.html', context)
 
 
@@ -46,6 +47,9 @@ def create_ads_confirm(request, **kwargs):
 
 """Редактирование объявления"""
 def update_ads_confirm(request, pk):
+    if request.user.is_anonymous:
+        return redirect('users:log_in')
+    
     instance = Advertisement.objects.get(id=pk)
     context = {"form": UpdateAdsForm(initial={"id":instance.id, "title": instance.title, "image": instance.image,\
                     "category":instance.category, "description": instance.description}),"ads": instance, }
@@ -77,6 +81,8 @@ def warning_ads_not_exits(request, **kwargs):
 
 """Удаление объявления"""
 def delete_ads_confirm(request, pk):
+    if request.user.is_anonymous:
+        return redirect('users:log_in')
     try:
         instance = Advertisement.objects.get(id=pk)
     except Advertisement.DoesNotExist:
