@@ -5,20 +5,11 @@ from ads.models import Advertisement
 from users.forms import MyRegForm
 from users.models import CustomUser
 from django.utils import timezone 
-
 from django.contrib.auth import get_user_model
 
-"""How to use fixtures?"""
-# @pytest.fixture
-# def setup_data_ads():  
-#     user = CustomUser.objects.create(email="andreyzo3@mail.ru")
-#     data = Advertisement(
-#         category = "tds",user = user, title = 'asddd', description = 'ppp', \
-#         image = '/home/andreymazo/Pictures/Screenshots/Screenshot from 2025-03-10 12-11-04.png',\
-#         created = timezone.now(), status = 'STATUS_USED') 
-#     return data  
+
 User = get_user_model()
-"""Команда python manage.py test"""
+
 class CreateUserAdsFormTest(TestCase):
     
     def setUp(self):
